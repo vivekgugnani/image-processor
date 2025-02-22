@@ -29,7 +29,7 @@ export class WorkerPoolService {
   private readonly numWorkers: number;
   private workerIds: Map<Worker, number> = new Map();
   private activeJobs: Map<Worker, string> = new Map();
-  private readonly MAX_WORKERS = 5;
+  private readonly MAX_WORKERS = 15;
 
   constructor() {
     // Calculate number of workers, minimum 1, maximum 5
