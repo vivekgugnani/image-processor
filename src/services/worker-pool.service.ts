@@ -29,9 +29,13 @@ export class WorkerPoolService {
   private readonly numWorkers: number;
   private workerIds: Map<Worker, number> = new Map();
   private activeJobs: Map<Worker, string> = new Map();
+  private readonly MAX_WORKERS = 5;
 
   constructor() {
-    this.numWorkers = Math.max(1, os.cpus().length - 1);
+    // Calculate number of workers, minimum 1, maximum 5
+    const cpuCount = Math.max(1, os.cpus().length - 1);
+    this.numWorkers = Math.min(cpuCount, this.MAX_WORKERS);
+    this.logger.log(`Initializing worker pool with ${this.numWorkers} workers (max: ${this.MAX_WORKERS})`);
     this.initializeWorkers();
   }
 
